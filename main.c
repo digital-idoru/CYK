@@ -70,7 +70,7 @@ struct Grammar* parseCFG(FILE* cfg) {
   //Variables pertaining to the Grammar
   struct Grammar* G = NULL;
   char* line = NULL;
-  Productions* tmp; 
+  struct Productions* tmp; 
   char* lhs = NULL;
 
   line = (char*)malloc(sizeof(char)*max_production_size);
@@ -80,7 +80,7 @@ struct Grammar* parseCFG(FILE* cfg) {
   }
   memset((void*)line, 0, max_production_size);
 
-  struct Grammar* G = (struct Grammar*)malloc(sizeof(struct Grammar));
+  G = (struct Grammar*)malloc(sizeof(struct Grammar));
   if (G == NULL) {
     fprintf(stderr, "Could not allocate grammar struct!\n");
     exit(FAIL);
@@ -113,7 +113,7 @@ struct Grammar* parseCFG(FILE* cfg) {
     fscanf(cfg, "%s\n", line);
     
     //Allocate the struct to hold the productions. 
-    tmp = (Productions*)malloc(sizeof(struct productions));
+    tmp = (struct Productions*)malloc(sizeof(struct Productions));
     
     //Tokenize the input string to produce the productions.//
     
@@ -124,7 +124,7 @@ struct Grammar* parseCFG(FILE* cfg) {
 
     //Add the new production to the array. 
     G->P[i] = tmp;
-  } while(!feof(cfg))
+  } while(!feof(cfg));
 
 
   #if debug
