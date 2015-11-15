@@ -30,7 +30,7 @@ struct Productions {
 };
 
 
-struct Grammer {
+struct Grammar {
 
   /** 
       Struct to represent the grammar as a whole. The output alphabet is represented as an array of char,
