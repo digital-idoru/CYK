@@ -1,11 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#ifndef main_includes
+#define main_includes
+
 #include "grammars.h"
 #include "symbolics.h"
 #include "prototypes.h"
 
-
+#endif
 
 
 int main(int argc, const char** argv) {
@@ -24,7 +27,7 @@ int main(int argc, const char** argv) {
 
   grammar_file = readInputFile(argv[1]);
   printf("Now parsing input file: %s\n", argv[1]);
-  
+  G = parseCFG(grammar_file); 
 
   #if debug
   printf("Please enter a string size: ");
@@ -57,6 +60,19 @@ FILE* readInputFile(char* path) {
   
   return f;
 }
+
+struct Grammar G* parseCFG(FILE* cfg) {
+  
+  struct Grammar* G = (struct Grammar*)malloc(sizeof(struct Grmmar));
+  if (G == NULL) {
+    fprintf(stderr, "Could not allocate grammar struct!\n");
+    exit(1);
+  }
+
+
+  return G;
+}
+
 
 //A function to allocate space for the CYK table (an nxn matrix where 
 //n is the length of the input string). 
