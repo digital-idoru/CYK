@@ -6,6 +6,9 @@
    S -- The start symbol of the grammar. 
 **/
 
+#ifndef GRAMMARS_H
+#define GRAMMARS_H
+
 struct ProductionNode {
   
   char* lhs;
@@ -45,3 +48,5 @@ struct Grammar {
 
 
 };
+
+#endif

@@ -1,14 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#ifndef main_includes
-#define main_includes
 
 #include "grammars.h"
 #include "symbolics.h"
 #include "prototypes.h"
 
-#endif
 
 
 int main(int argc, const char** argv) {
@@ -61,14 +58,13 @@ FILE* readInputFile(char* path) {
   return f;
 }
 
-struct Grammar G* parseCFG(FILE* cfg) {
+struct Grammar* parseCFG(FILE* cfg) {
   
   struct Grammar* G = (struct Grammar*)malloc(sizeof(struct Grmmar));
   if (G == NULL) {
     fprintf(stderr, "Could not allocate grammar struct!\n");
     exit(1);
   }
-
 
   return G;
 }
