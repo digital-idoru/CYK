@@ -115,9 +115,15 @@ struct Grammar* parseCFG(FILE* cfg) {
     //Allocate the struct to hold the productions. 
     tmp = (Productions*)malloc(sizeof(struct productions));
     
-    //Tokenize the input string to produce the productions. 
-    lhs = strtok(line, ","); 
+    //Tokenize the input string to produce the productions.//
+    
+    //First capture the LHS of the production. 
+    lhs = strtok(line, ",");
+    tmp->lhs = lhs[0];
 
+
+    //Add the new production to the array. 
+    G->P[i] = tmp;
   } while(!feof(cfg))
 
 
