@@ -44,7 +44,7 @@ struct Grammar {
   
   char* alphabet;
   char start_symbol; 
-  struct productions** P; 
+  struct Productions** P; 
 
 
 };
