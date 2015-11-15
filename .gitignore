@@ -35,3 +35,4 @@ CYK
 #Backup files
 *.c~
 *.h~
+*.grammar~
