@@ -78,9 +78,11 @@ struct Grammar* parseCFG(FILE* cfg) {
   memset((void*)G->alphabet, 0, (size_t)max_alphabet_size); 
 
   fscanf(cfg, "%s\n", G->alphabet);
-  
+  fscanf(cfg, "%c\n", &G->start_symbol);
+
   #if debug
-  printf("%s\n", G->alphabet);
+  printf("The alphabet is: %s\n", G->alphabet);
+  printf("The srart symbol is: %c\n", G->start_symbol);
   #endif
 
   return G;
