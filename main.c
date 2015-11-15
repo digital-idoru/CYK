@@ -112,24 +112,37 @@ struct Grammar* parseCFG(FILE* cfg) {
     //Scan the line to read the productions. 
     fscanf(cfg, "%s\n", line);
     
-    //Allocate the struct to hold the productions. 
+    //Allocate the struct and initialize fields to starting values.  
     tmp = (struct Productions*)malloc(sizeof(struct Productions));
-    
+    if(tmp == NULL) {
+      fprintf(stderr, "Could not allocate Productions struct.\n");
+      exit(FAIL);
+    }
+    tmp->lhs = '0';
+    tmp->head = NULL; 
+
     //Tokenize the input string to produce the productions.//
     
     //First capture the LHS of the production. 
     lhs = strtok(line, ",");
     tmp->lhs = lhs[0];
 
+    #if debug
+    printf("The LHS is: %c\n", lhs[0]);
+    #endif
+    
+
 
     //Add the new production to the array. 
     G->P[i] = tmp;
+    i++;
   } while(!feof(cfg));
 
 
   #if debug
   printf("The alphabet is: %s\n", G->alphabet);
   printf("The start symbol is: %c\n", G->start_symbol);
+  printf("The LHS of the first rule is: %c\n", (G->P[0])->lhs);
   #endif
 
   return G;
