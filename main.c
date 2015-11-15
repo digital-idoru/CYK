@@ -27,7 +27,7 @@ int main(int argc, const char** argv) {
   G = parseCFG(grammar_file); 
   printf("Parsing complete!\n");
 
-  #if debug
+  #if MAINDEBUG
   printf("Please enter a string size: ");
   scanf("%d", &string_size);
 
@@ -165,7 +165,7 @@ struct Grammar* parseCFG(FILE* cfg) {
   } while(!feof(cfg));
 
 
-  #if debug
+  #if GRAMMARDEBUG
   printf("The alphabet is: %s\n", G->alphabet);
   printf("The start symbol is: %c\n", G->start_symbol);
   printf("The RHS of the first rule is: %c\n", (G->P[0])->lhs);
