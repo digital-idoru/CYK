@@ -6,6 +6,14 @@
    S -- The start symbol of the grammar. 
 **/
 
+struct ProductionNode {
+  
+  char* lhs;
+  struct ProductionNode* next;
+
+};
+
+
 struct Productions {
 
   /** 
@@ -17,7 +25,7 @@ struct Productions {
 
 
   char NT; //Left hand side of the rule
-  char** RHS; //Right hand side of the production
+  struct ProductionNode* head; //Head of a linked list representing the LHSs of the production. 
 
 };
 
@@ -26,13 +34,14 @@ struct Grammer {
 
   /** 
       Struct to represent the grammar as a whole. The output alphabet is represented as an array of char,
-      the start symbol is given a special variable for easy access, and the set of productions is repesented as an array 
-      of productions. 
+      the start symbol is given a special variable for easy access, and the set of productions is 
+      repesented as an array of productions, each production is represented as a struct that contains a 
+      RHS non-terminal symbol and a linked list representhing the LHSs of the rule. 
   **/
   
   char* alphabet;
   char start_symbol; 
-  struct productions* P; 
+  struct productions** P; 
 
 
 };
