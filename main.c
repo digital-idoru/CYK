@@ -71,6 +71,7 @@ struct Grammar* parseCFG(FILE* cfg) {
   struct Grammar* G = NULL;
   char* line = NULL;
   Productions* tmp; 
+  char* lhs = NULL;
 
   line = (char*)malloc(sizeof(char)*max_production_size);
   if(line == NULL) {
@@ -107,9 +108,16 @@ struct Grammar* parseCFG(FILE* cfg) {
 
   //Read the productions and populate the data structures. 
   do {
+
+    //Scan the line to read the productions. 
     fscanf(cfg, "%s\n", line);
+    
+    //Allocate the struct to hold the productions. 
     tmp = (Productions*)malloc(sizeof(struct productions));
     
+    //Tokenize the input string to produce the productions. 
+    lhs = strtok(line, ","); 
+
   } while(!feof(cfg))
 
 
