@@ -60,7 +60,7 @@ FILE* readInputFile(char* path) {
 
 struct Grammar* parseCFG(FILE* cfg) {
   
-  struct Grammar* G = (struct Grammar*)malloc(sizeof(struct Grmmar));
+  struct Grammar* G = (struct Grammar*)malloc(sizeof(struct Grammar));
   if (G == NULL) {
     fprintf(stderr, "Could not allocate grammar struct!\n");
     exit(FAIL);
