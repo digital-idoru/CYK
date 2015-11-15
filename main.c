@@ -64,6 +64,20 @@ struct Grammar* parseCFG(FILE* cfg) {
   //These values are fixed for now for debugging purposes. 
   int max_alphabet_size = 30;
   int max_num_productions = 30; 
+  int max_production_size = 100;
+  int i = 0; 
+
+  //Variables pertaining to the Grammar
+  struct Grammar* G = NULL;
+  char* line = NULL;
+  Productions* tmp; 
+
+  line = (char*)malloc(sizeof(char)*max_production_size);
+  if(line == NULL) {
+    fprintf(stderr, "Could not allocate space for production string parsing.\n");
+    exit(FAIL);
+  }
+  memset((void*)line, 0, max_production_size);
 
   struct Grammar* G = (struct Grammar*)malloc(sizeof(struct Grammar));
   if (G == NULL) {
@@ -85,8 +99,18 @@ struct Grammar* parseCFG(FILE* cfg) {
     exit(FAIL);
   }
 
+  //Read the alphabet from the input file. 
   fscanf(cfg, "%s\n", G->alphabet);
+
+  //Read the start symbol from the input file. 
   fscanf(cfg, "%c\n", &G->start_symbol);
+
+  do {
+    fscanf(cfg, "%s\n", line);
+    tmp = (Productions*)malloc(sizeof(struct productions));
+    
+  } while(!feof(cfg))
+
 
   #if debug
   printf("The alphabet is: %s\n", G->alphabet);
