@@ -105,6 +105,7 @@ struct Grammar* parseCFG(FILE* cfg) {
   //Read the start symbol from the input file. 
   fscanf(cfg, "%c\n", &G->start_symbol);
 
+  //Read the productions and populate the data structures. 
   do {
     fscanf(cfg, "%s\n", line);
     tmp = (Productions*)malloc(sizeof(struct productions));
@@ -114,7 +115,7 @@ struct Grammar* parseCFG(FILE* cfg) {
 
   #if debug
   printf("The alphabet is: %s\n", G->alphabet);
-  printf("The srart symbol is: %c\n", G->start_symbol);
+  printf("The start symbol is: %c\n", G->start_symbol);
   #endif
 
   return G;
