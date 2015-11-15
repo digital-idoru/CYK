@@ -19,7 +19,7 @@ int main(int argc, const char** argv) {
   //Check for correct command line arguments. 
   if(argc != ARGS) {
     fprintf(stderr, "Useage: CYK [grammar file]\n");
-    exit(1);
+    exit(FAIL);
   }
 
   grammar_file = readInputFile(argv[1]);
