@@ -13,13 +13,17 @@ A, uBv, xCy is on a line by itself in the file.
 For example, the following grammar: 
 
 S -> aSa | aSS | B
+
 B -> bB | e 
 
 is represented by the following: 
 
 a,b
+
 S
+
 S, aSa, aSS, B
+
 B, bB, e 
 
 where e represents \epsilon, or \lambda the empty string. 
