@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "grammars.h"
 
-#DEFINE debug 1
+#include "grammars.h"
+#include "symbolics.h"
+#include "prototypes.h"
+
 
 
 
@@ -13,11 +15,12 @@ int main(int argc, const char** argv) {
   char** Table = NULL; 
   int i, j = 0;
   
+  #if debug
   printf("Please enter a string size: ");
   scanf("%d", &string_size);
 
   printf("Creating CYK Table.\n");
-  
+  #endif
 
 
   return 0;
