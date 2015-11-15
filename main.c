@@ -20,6 +20,8 @@ int main(int argc, const char** argv) {
 
   printf("Creating CYK Table.\n");
   Table = createCYKTable(string_size);
+  Table[1][1] = 'h';
+  printf("%c\n", Table[1][1]);
  #endif
 
 
@@ -28,11 +30,11 @@ int main(int argc, const char** argv) {
 }
 
 char** createCYKTable(int size) {
-  char** t; //Pointer to the matrix. 
+  char** t = NULL; //Pointer to the matrix. 
   int i, j = 0; 
   
-  *t = (char*)malloc(sizeof(char*)*size);
-  if (*t == NULL) {
+  t = (char**)malloc(sizeof(char*)*size);
+  if (t == NULL) {
     fprintf(stderr, "Could not allocate initial rows for CYK table.\n");
     exit(1);
   }
