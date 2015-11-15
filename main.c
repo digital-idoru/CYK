@@ -14,6 +14,7 @@ int main(int argc, const char** argv) {
   char* input_string = NULL;
   char** Table = NULL; 
   FILE* grammar_file = NULL;
+  struct Grammar* G = NULL;
 
   //Check for correct command line arguments. 
   if(argc != ARGS) {
@@ -22,6 +23,7 @@ int main(int argc, const char** argv) {
   }
 
   grammar_file = readInputFile(argv[1]);
+  printf("Now parsing input file: %s\n", argv[1]);
   
 
   #if debug
@@ -40,6 +42,9 @@ int main(int argc, const char** argv) {
 
 }
 
+//Simple function for opening a file. Probably shouldn't even be a function. 
+//Input -- path - A string representing the path to the file to open for reading. 
+//Return -- f - a pointer to the open file. 
 FILE* readInputFile(char* path) {
   
   FILE* f = NULL;
@@ -53,7 +58,10 @@ FILE* readInputFile(char* path) {
   return f;
 }
 
-
+//A function to allocate space for the CYK table (an nxn matrix where 
+//n is the length of the input string). 
+//Input -- size - An integer representing the dimensions of the matrix. 
+//Returns -- t - A double pointer to the matrix. 
 char** createCYKTable(int size) {
   char** t = NULL; //Pointer to the matrix. 
   int i, j = 0; 
