@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <string.h>
 
 #include "grammars.h"
 #include "symbolics.h"
@@ -25,6 +25,7 @@ int main(int argc, const char** argv) {
   grammar_file = readInputFile(argv[1]);
   printf("Now parsing input file: %s\n", argv[1]);
   G = parseCFG(grammar_file); 
+  printf("Parsing complete!\n");
 
   #if debug
   printf("Please enter a string size: ");
@@ -60,11 +61,27 @@ FILE* readInputFile(char* path) {
 
 struct Grammar* parseCFG(FILE* cfg) {
   
+  int max_alphabet_size = 30;
+
   struct Grammar* G = (struct Grammar*)malloc(sizeof(struct Grammar));
   if (G == NULL) {
     fprintf(stderr, "Could not allocate grammar struct!\n");
     exit(FAIL);
   }
+
+  G->alphabet = (char*)malloc(sizeof(char)*max_alphabet_size);
+  if(G->alphabet == NULL) {
+    fprintf(stderr, "Could not allocate alphabet space.\n");
+    exit(FAIL);
+  }
+
+  memset((void*)G->alphabet, 0, (size_t)max_alphabet_size); 
+
+  fscanf(cfg, "%s\n", G->alphabet);
+  
+  #if debug
+  printf("%s\n", G->alphabet);
+  #endif
 
   return G;
 }
