@@ -61,7 +61,9 @@ FILE* readInputFile(char* path) {
 
 struct Grammar* parseCFG(FILE* cfg) {
   
+  //These values are fixed for now for debugging purposes. 
   int max_alphabet_size = 30;
+  int max_num_productions = 30; 
 
   struct Grammar* G = (struct Grammar*)malloc(sizeof(struct Grammar));
   if (G == NULL) {
@@ -76,6 +78,12 @@ struct Grammar* parseCFG(FILE* cfg) {
   }
 
   memset((void*)G->alphabet, 0, (size_t)max_alphabet_size); 
+  
+  G->P = (struct Productions**)malloc(sizeof(struct Productions*)*max_num_productions);
+  if(G->P == NULL) {
+    fprintf(stderr, "Could not allocate space for Productions array\n");
+    exit(FAIL);
+  }
 
   fscanf(cfg, "%s\n", G->alphabet);
   fscanf(cfg, "%c\n", &G->start_symbol);
