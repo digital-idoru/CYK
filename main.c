@@ -70,8 +70,9 @@ struct Grammar* parseCFG(FILE* cfg) {
   //Variables pertaining to the Grammar
   struct Grammar* G = NULL;
   char* line = NULL;
-  struct Productions* tmp; 
-  char* lhs = NULL;
+  struct Productions* tmp = NULL;
+  struct ProductionNode* nodeTmp = NULL;
+  char* token = NULL;
 
   line = (char*)malloc(sizeof(char)*max_production_size);
   if(line == NULL) {
@@ -124,15 +125,40 @@ struct Grammar* parseCFG(FILE* cfg) {
     //Tokenize the input string to produce the productions.//
     
     //First capture the LHS of the production. 
-    lhs = strtok(line, ",");
-    tmp->lhs = lhs[0];
-
-    #if debug
-    printf("The LHS is: %c\n", lhs[0]);
-    #endif
+    token = strtok(line, ",");
+    tmp->lhs = token[0];
     
+    //Get the RHS of the current production. 
+    while((token = strtok(NULL, ",")) != NULL) {
 
+      //Allocate a node for the linked list. 
+      nodeTmp = (struct ProductionNode*)malloc(sizeof(struct ProductionNode));
+      if(nodeTmp == NULL) {
+	fprintf(stderr, "Could not allocate production node for RHS of rule.\n");
+	exit(FAIL);
+      }
+      
+      //Allocate for string representing the RHS of the current production. 
+      nodeTmp->rhs = (char*)malloc(sizeof(char)*max_production_size);
+      if(nodeTmp->rhs == NULL) {
+	fprintf(stderr, "Could not allocate memory for string RHS of rile.\n");
+	exit(FAIL);
+      }
+      memset((void*)nodeTmp->rhs, 0, (size_t)max_production_size);
+      
+      //Copy the string to the rhs. 
+      strcpy(nodeTmp->rhs, token);
 
+      //Add the rhs to the linked list. 
+      if(tmp->head == NULL) {
+	tmp->head = nodeTmp;
+      }	else {
+	nodeTmp->next = tmp->head;
+	tmp->head = nodeTmp;
+      }
+
+    }
+    
     //Add the new production to the array. 
     G->P[i] = tmp;
     i++;
@@ -142,7 +168,7 @@ struct Grammar* parseCFG(FILE* cfg) {
   #if debug
   printf("The alphabet is: %s\n", G->alphabet);
   printf("The start symbol is: %c\n", G->start_symbol);
-  printf("The LHS of the first rule is: %c\n", (G->P[0])->lhs);
+  printf("The RHS of the first rule is: %c\n", (G->P[0])->lhs);
   #endif
 
   return G;
