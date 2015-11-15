@@ -13,7 +13,17 @@ int main(int argc, const char** argv) {
   int string_size = 0;
   char* input_string = NULL;
   char** Table = NULL; 
+  FILE* grammar_file = NULL;
+
+  //Check for correct command line arguments. 
+  if(argc != ARGS) {
+    fprintf(stderr, "Useage: CYK [grammar file]\n");
+    exit(1);
+  }
+
+  grammar_file = readInputFile(argv[1]);
   
+
   #if debug
   printf("Please enter a string size: ");
   scanf("%d", &string_size);
@@ -22,12 +32,27 @@ int main(int argc, const char** argv) {
   Table = createCYKTable(string_size);
   Table[1][1] = 'h';
   printf("%c\n", Table[1][1]);
- #endif
+  #endif
 
 
+  fclose(grammar_file);
   return 0;
 
 }
+
+FILE* readInputFile(char* path) {
+  
+  FILE* f = NULL;
+  f = fopen(path, "r");
+  
+  if(f == NULL) {
+    fprintf(stderr, "Could not open grammar file for reading!\n");
+    exit(1);
+  }
+  
+  return f;
+}
+
 
 char** createCYKTable(int size) {
   char** t = NULL; //Pointer to the matrix. 
@@ -49,3 +74,4 @@ char** createCYKTable(int size) {
 
   return t;
 }
+
