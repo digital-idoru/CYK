@@ -52,7 +52,7 @@ FILE* readInputFile(char* path) {
   
   if(f == NULL) {
     fprintf(stderr, "Could not open grammar file for reading!\n");
-    exit(1);
+    exit(FAIL);
   }
   
   return f;
@@ -63,7 +63,7 @@ struct Grammar* parseCFG(FILE* cfg) {
   struct Grammar* G = (struct Grammar*)malloc(sizeof(struct Grmmar));
   if (G == NULL) {
     fprintf(stderr, "Could not allocate grammar struct!\n");
-    exit(1);
+    exit(FAIL);
   }
 
   return G;
@@ -88,7 +88,7 @@ char** createCYKTable(int size) {
     t[i] = (char*)malloc(sizeof(char)*size);
     if(t[i] == NULL) {
       fprintf(stderr, "Could not allocate space for row: %d", i);
-      exit(1);
+      exit(FAIL);
     }
   }
 
